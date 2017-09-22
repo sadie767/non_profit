@@ -1,0 +1,25 @@
+<h1>Project/Volunteer tracker</h1>
+<h3>Add, update, delete, and view your projects and volunteers associated with them.</h3>
+<br>
+<div class='container'>
+<form method='post' action='/new_title'>
+  <div class='form-group'>
+    <label for='title'>Enter the title of the project:</label>
+    <input id='t' name='title' class'form-control' type='text'>
+  </div>
+  <button type='submit' class="btn-success">Create project</button>
+</form>
+<br><br>
+<form method='post' action='/'>
+  <div class='form-group'>
+    <label for='name'>Enter a volunteer:</label>
+    <input id='n' name='name' class'form-control' type='text'>
+  </div>
+  <button type='submit' class="btn-success">Add volunteer!</button>
+</form>
+<div>
+<br><br>
+<% @project_input.each do |item| %>
+  <li><% item.id %><%= item.title %></li>
+</ul>
+<% end %>

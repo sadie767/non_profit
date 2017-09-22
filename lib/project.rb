@@ -52,13 +52,15 @@ end
 #     all_volunteers
 #   end
 
-def update
-  update_projects = DB.exec("UPDATE projects SET title = 'Teaching Ruby to kids' WHERE id = 1;")
-end
+def update(attributes)
+    @title = attributes.fetch(:title)
+    @id = self.id()
+    DB.exec("UPDATE projects SET title = '#{@title}' WHERE id = #{@id};")
+  end
 
-def delete
-  delete_projects = DB.exec('DELETE FROM projects WHERE id = 1;')
-  @id = delete_projects.first().fetch('id').to_i()
-end
+  def delete
+     DB.exec("DELETE FROM projects WHERE id = #{self.id()};")
+     DB.exec("DELETE FROM volunteers WHERE project_id = #{self.id()};")
+   end
 
 end
