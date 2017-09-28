@@ -2,7 +2,7 @@
 <h3>Add, update, delete, and view your projects and volunteers associated with them.</h3>
 <br>
 <div class='container'>
-<form method='post' action='/new_title'>
+<form method='post' action='/new_titles'>
   <div class='form-group'>
     <label for='title'>Enter the title of the project:</label>
     <input id='t' name='title' class'form-control' type='text'>
@@ -19,7 +19,7 @@
 </form>
 <div>
 <br><br>
-<% @project_input.each do |item| %>
-  <li><a href="change_title/<%= item.id %>"><%= item.title %></a></li>
+<% @project.each do |item| %>
+  <li><%= item.title() %><br><a href="/projects/<%= item.id %>/edit">Edit Project</a><a href="/projects/<%= item.id %>/delete">Delete Project</a></li>
 </ul>
 <% end %>

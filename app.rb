@@ -1,70 +1,52 @@
 require('sinatra')
 require('sinatra/reloader')
+also_reload('lib/**/*.rb')
 require('./lib/volunteer')
 require('./lib/project')
-also_reload('lib/**/*.rb')
 require("pg")
 require("pry")
 
 DB = PG.connect({:dbname => "volunteer_tracker_test"})
 
 get('/') do
-  @project_input = Project.all
+  @project = Project.all
   erb(:index)
 end
 
-post('/new_title') do
-  id = params['id']
+post('/new_titles') do
+  id = params[:id]
   @title = params['title']
   new_title = Project.new({:id => id, :title => @title})
   new_title.save
-  @project_input = Project.all()
+  @project = Project.all()
   erb(:index)
 end
 
 
-
-get('/change_title/:id') do
+get('/projects/:id/edit') do
   @project_input = Project.find(params.fetch("id").to_i())
-  binding.pry
-  erb(:title_form)
+  erb(:title_edit)
 end
 
 
-patch("/update/:id/edit") do
-  @id = params['id']
+patch("/change_titles/:id/edit") do
+  id = params[:id]
   @title = params["title"]
   @project_input = Project.find(params.fetch("id").to_i())
   @project_input.update({:title => @title})
   redirect('/')
 end
 
-#
-# post('/new_title2') do
-#   id = params['id']
-#   @title = params['title2']
-#   new_title = Project.new({:id => id, :title => @title})
-#   new_title.save
-#   new_title.update
-#   @project_input = Project.all()
-#   erb(:detail)
-# end
-#
-# get("/projects/:id/edit") do
-#   @project_input = Project.find(params.fetch("id").to_i())
-#   erb(:detail)
-# end
-#
-# patch("/projects/:id") do
-#   title = params.fetch("title")
-#   @project_input = Project.find(params.fetch("id").to_i())
-#   @project_input.update({:title => title})
-#   erb(:detail)
-# end
-#
-# delete("/projects/:id") do
-#   @project_input = Project.find(params.fetch("id").to_i())
-#   @project_input.delete()
-#   @project_input = Project.all()
-#   erb(:index)
-# end
+get('/projects/:id/delete') do
+  @project_input = Project.find(params.fetch("id").to_i())
+  erb(:title_edit)
+end
+
+delete ('/delete_titles/:id/delete') do
+  @id = params[:id]
+  @title = params['title']
+  @project_input = Project.find(params.fetch("id").to_i())
+  @project_input.delete()
+  @project = Project.all()
+  redirect('/')
+end

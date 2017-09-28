@@ -1,4 +1,6 @@
-<form action="/update/<% project_input.id() %>/edit" method="post">
+<h1>Update the <%= @project_input.title() %> Title</h1>
+
+<form action="/change_titles/<%= @project_input.id() %>/edit" method="post">
   <input name="_method" type="hidden" value="patch">
 
   <label for="title">Rename your project:</label>
@@ -7,9 +9,8 @@
   <button type="submit">Update Project</button>
 </form>
 
-<form action="/delete %>" method="post">
+<form action="/delete_titles/<%= @project_input.id() %>/delete" method="post">
   <input name="_method" type="hidden" value="delete">
 
   <button type="submit">Delete Project</button>
 </form>
-<ul>
