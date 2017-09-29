@@ -39,18 +39,17 @@ end
     id_finder
   end
 
-#   def volunteer
-#     all_volunteers = nil
-#     select_volunteers = ('SELECT * FROM projects
-# JOIN volunteers ON (volunteers.project_id = projects.id)
-# WHERE projects.id = 1;')
-#     select_volunteers.all().each() do |item|
-#       if item.project_id().==(id)
-#         all_volunteers = item
-#       end
-#     end
-#     all_volunteers
-#   end
+  def volunteers
+    array_volunteers = []
+    volunteers = DB.exec("SELECT * FROM volunteers WHERE project_id = #{self.id};")
+    volunteers.each do |volunteer|
+      id = volunteer["id"].to_i
+      name = volunteer["name"]
+      project_id = volunteer["project_id"].to_i
+      project_volunteers.push(Volunteer.new({:id => id, :name => name, :project_id => project_id}))
+    end
+    array_volunteers
+  end
 
 def update(attributes)
     @title = attributes.fetch(:title)
