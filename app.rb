@@ -6,7 +6,7 @@ require('./lib/project')
 require("pg")
 require("pry")
 
-DB = PG.connect({:dbname => "volunteer_tracker_test"})
+DB = PG.connect({:dbname => "volunteer_tracker"})
 
 get('/') do
   @project = Project.all
@@ -24,13 +24,13 @@ post('/projects') do
 end
 
 get('/projects/:id') do
-  @project_id = params[:id]
-  @project_input = Project.find(params.fetch("id").to_i)
-  @volunteer = Volunteer.all
+  @id = params[:id]
+  @project = Project.find(@id.to_i)
+  @volunteers = @project.volunteers
   erb(:projects)
 end
 
-get('/edit/:id') do
+get('/projects/:id/edit') do
   @projects_id = params[:id]
   @project_input = Project.find(params.fetch("id").to_i)
   erb(:project_edit)

@@ -33,8 +33,9 @@ def self.all
 end
 
 def save
-  result = DB.exec("INSERT INTO volunteers (name) VALUES ('#{@name}') returning id;")
+  result = DB.exec("INSERT INTO volunteers (name, project_id) VALUES ('#{@name}', '#{@project_id}') returning id;")
   @id = result.first().fetch('id').to_i()
+  return result
 end
 
 def self.find(id)

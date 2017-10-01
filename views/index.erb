@@ -10,6 +10,7 @@
   <button type='submit' class="btn-success">Create Project</button>
 </form>
 <br><br>
+<h3>Click on project for more information:</h3>
 <ul>
 <% @project.each do |item| %>
   <li><a href='/projects/<%= item.id %>'<li><%= item.title() %></a></li>

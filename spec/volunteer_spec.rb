@@ -1,9 +1,4 @@
-require('rspec')
-require('pg')
-require('volunteer')
-require('spec_helper')
-
-DB = PG.connect({:dbname => 'volunteer_tracker'})
+require "spec_helper"
 
 describe Volunteer do
   describe '#name' do

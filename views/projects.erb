@@ -1,8 +1,8 @@
-<h2><%= @project_input.title %></h2>
-  <p><a href="/edit/<%= @project_input.id %>">Edit Project</a></p>
+<h2><%= @project.title %></h2>
+  <p><a href="/projects/<%= @project.id %>/edit">Edit Project</a></p>
 
 <h3>Volunteer Entry</h3>
-<form method='post' action='/projects/<%= @project_input.id %>/add_volunteer'>
+<form method='post' action='/projects/<%= @project.id %>/add_volunteer'>
   <div class='form-group'>
     <label for='name'>Enter a volunteer:</label>
     <input id='n' name='name' class'form-control' type='text'>
@@ -12,10 +12,10 @@
 <div>
 <br><br>
 <h2>Volunteers assigned to this project</h2>
-<% if @volunteer.any? %>
+<% if @volunteers.any? %>
 <ul>
-<% @volunteer.each do |item| %>
-<li><a href="/volunteer_entry/<%= item.id %>"><%= item.name %></a></li>
+<% @volunteers.each do |volunteer| %>
+<li><a href="/volunteer_entry/<%= volunteer.id %>"><%= volunteer.name %></a></li>
 <% end %>
 </ul>
 <% else %>

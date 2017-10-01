@@ -11,6 +11,7 @@ end
 def save
   result = DB.exec("INSERT INTO projects (title) VALUES ('#{@title}') returning id;")
   @id = result.first().fetch('id').to_i()
+  return result
 end
 
 def self.all
@@ -40,14 +41,16 @@ end
   end
 
   def volunteers
-     projects_id = self.id
-     array_volunteers = []
-     Volunteer.all().each do |volunteer|
-       if volunteer.project_id.==(projects_id)
-         array_volunteers.push(volunteer)
-       end
-     end
-     array_volunteers
+    array_volunteers = []
+    volunteers = DB.exec("SELECT * FROM volunteers WHERE project_id = #{self.id};")
+    volunteers.each do |volunteer|
+      id = volunteer["id"].to_i
+      name = volunteer["name"]
+      project_id = volunteer["project_id"].to_i
+      array_volunteers.push(Volunteer.new({:id => id, :name => name, :project_id => project_id}))
+    end
+    array_volunteers
+
    end
 
 def update(attributes)
@@ -57,8 +60,8 @@ def update(attributes)
   end
 
   def delete
-     DB.exec("DELETE FROM projects WHERE id = #{self.id()};")
-     DB.exec("DELETE FROM volunteers WHERE project_id = #{self.id()};")
+    DB.exec("DELETE FROM volunteers WHERE project_id = #{self.id()};")
+    DB.exec("DELETE FROM projects WHERE id = #{self.id()};")
    end
 
 end

@@ -1,6 +1,7 @@
 <h1>Edit Volunteer</h1>
 
 <h2><%= @volunteer_input.name() %></h2>
+<br><br><br>
 
 <form action="/volunteer_entry/<%= @volunteer_input.id %>/update" method="post">
   <input name="_method" type="hidden" value="patch">
@@ -10,3 +11,5 @@
 
   <button type="submit">Update Volunteer</button>
 </form>
+<br><br>
+<h3><a href='/'>Return Home</a></h3>
