@@ -61,12 +61,13 @@ post('/projects/:project_id/add_volunteer') do
   redirect("/projects/#{project_id}")
 end
 
-get("/volunteer_edit/:id") do
+get("/volunteer_entry/:id") do
+  @volunteers_id = params[:id]
   @volunteer_input = Volunteer.find(params.fetch("id").to_i)
   erb(:volunteer_edit)
 end
 
-patch("/volunteer/:id" ) do
+patch("/volunteer_entry/:id/update" ) do
 name = params["name"]
 @volunteer_input = Volunteer.find(params.fetch("id").to_i)
 @volunteer_input.update({:name => name})

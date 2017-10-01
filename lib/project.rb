@@ -40,16 +40,15 @@ end
   end
 
   def volunteers
-    array_volunteers = []
-    volunteers = DB.exec("SELECT * FROM volunteers WHERE project_id = #{self.id};")
-    volunteers.each do |volunteer|
-      id = volunteer["id"].to_i
-      name = volunteer["name"]
-      project_id = volunteer["project_id"].to_i
-      project_volunteers.push(Volunteer.new({:id => id, :name => name, :project_id => project_id}))
-    end
-    array_volunteers
-  end
+     projects_id = self.id
+     array_volunteers = []
+     Volunteer.all().each do |volunteer|
+       if volunteer.project_id.==(projects_id)
+         array_volunteers.push(volunteer)
+       end
+     end
+     array_volunteers
+   end
 
 def update(attributes)
     @title = attributes.fetch(:title)

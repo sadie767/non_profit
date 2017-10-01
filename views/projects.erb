@@ -13,9 +13,11 @@
 <br><br>
 <h2>Volunteers assigned to this project</h2>
 <% if @volunteer.any? %>
+<ul>
 <% @volunteer.each do |item| %>
-<a href="/volunteer_edit/<%= item.id %>"><%= item.name %></a>
+<li><a href="/volunteer_entry/<%= item.id %>"><%= item.name %></a></li>
 <% end %>
+</ul>
 <% else %>
 <h3>Currently, there are no volunteers assigned.</h3>
 <% end %>

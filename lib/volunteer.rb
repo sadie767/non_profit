@@ -14,6 +14,12 @@ def ==(another_volunteer)
 
 end
 
+def update(attributes)
+    @name = attributes.fetch(:name)
+    @id = self.id()
+    DB.exec("UPDATE projects SET title = '#{@name}' WHERE id = #{@id};")
+  end
+
 def self.all
   return_name = DB.exec('SELECT * FROM volunteers;')
   name_arrays = []
